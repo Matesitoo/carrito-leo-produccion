@@ -1,4 +1,4 @@
-import psycopg
+import psycopg2
 from fastapi import APIRouter, Depends
 from managers.conexionManagerSupabase import getCursor
 from managers.pedidosManager import PedidosManager
@@ -13,7 +13,7 @@ def postPedido(pedido: PedidoModel, cursor: psycopg.Cursor = Depends(getCursor))
     return {"msg": res}
 
 @router.get("/obtener_pedidos")
-def getPedidos(cursor: psycopg.Cursor = Depends(getCursor)):
+def getPedidos(cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     res = PedidoManager.getPedidos(cursor)
     return res
 

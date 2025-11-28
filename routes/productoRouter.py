@@ -1,4 +1,4 @@
-import psycopg
+import psycopg2
 from fastapi import APIRouter, Depends
 from managers.conexionManagerSupabase import getCursor
 from managers.productosManager import ProductosManager
@@ -23,6 +23,6 @@ def modificarProducto(id: int, producto: ProductoUpdateModel, cursor: psycopg.Cu
     return {"msg": res}
 
 @router.delete("/eliminar_producto/{id}")
-def eliminarProducto(id: int, cursor: psycopg.Cursor = Depends(getCursor)):
+def eliminarProducto(id: int, cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     res = ProdManager.eliminarProducto(id, cursor)
     return {"msg": res}

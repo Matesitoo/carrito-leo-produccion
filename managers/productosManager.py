@@ -1,21 +1,22 @@
-import psycopg
+import psycopg2
 from models.models import ProductoModel, ProductoUpdateModel
 
 class ProductosManager:
-    def addProducto(self, producto: ProductoModel, cursor: psycopg.Cursor):
+    def addProducto(self, producto: ProductoModel, cursor: psycopg2.extensions.cursor) -> str:
         cursor.execute(
-            "INSERT INTO producto (nombre, precio) VALUES (%s,%s)",
+            "INSERT INTO producto (nombre, precio) VALUES (%s, %s)",
             (producto.nombre, producto.precio),
         )
         return "Producto agregado"
 
-    def getProductos(self, cursor: psycopg.Cursor) -> list:
-        res = cursor.execute("SELECT * FROM producto").fetchall()
+    def getProducts(self, cursor: psycopg2.extensions.cursor) -> list:
+        cursor.execute("SELECT * FROM producto")
+        res = cursor.fetchall()
         return [
             {"id_producto": row[0], "nombre": row[1], "precio": row[2]} for row in res
         ]
 
-    def modificarProducto(self, id: int, producto: ProductoUpdateModel, cursor: psycopg.Cursor) -> str:
+    def modifierProducto(self, id: int, producto: ProductoUpdateModel, cursor: psycopg2.extensions.cursor) -> str:
         if producto.nombre and producto.precio:
             cursor.execute(
                 "UPDATE producto SET nombre = %s, precio = %s WHERE id_producto = %s",
@@ -33,6 +34,6 @@ class ProductosManager:
             )
         return "Producto modificado"
 
-    def eliminarProducto(self, id: int, cursor: psycopg.Cursor) -> str:
+    def eliminarProducto(self, id: int, cursor: psycopg2.extensions.cursor) -> str:
         cursor.execute("DELETE FROM producto WHERE id_producto = %s", (id,))
         return "Producto eliminado"

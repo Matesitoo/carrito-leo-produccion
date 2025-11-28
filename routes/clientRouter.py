@@ -1,4 +1,4 @@
-import psycopg
+import psycopg2
 from fastapi import APIRouter, Depends
 from managers.clientesManager import ClienteManager
 from managers.conexionManagerSupabase import getCursor
@@ -8,7 +8,7 @@ router = APIRouter(prefix="/clientes", tags=["Clientes routes"])
 clientManager = ClienteManager()
 
 @router.get("/obtener_clientes")
-def getClientes(cursor: psycopg.Cursor = Depends(getCursor)):
+def getClientes(cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     res = clientManager.getClientes(cursor)
     return res
 
