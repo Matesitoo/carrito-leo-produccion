@@ -8,6 +8,8 @@ passwordDB = os.getenv("SUPABASE_PASSWORD")
 
 def getCursor() -> Generator[psycopg2.extensions.cursor, None, None]:
     try:
+        print(f"Attempting connection with password: {passwordDB[:5]}...")  # Debug
+        
         conn = psycopg2.connect(
             host="db.uubvpnmdekdkzyvhjasb.supabase.co",
             database="postgres",
@@ -17,6 +19,7 @@ def getCursor() -> Generator[psycopg2.extensions.cursor, None, None]:
             sslmode="require",
             connect_timeout=10
         )
+        print("Database connection successful!")
         cursor = conn.cursor()
         try:
             yield cursor
@@ -28,5 +31,5 @@ def getCursor() -> Generator[psycopg2.extensions.cursor, None, None]:
             cursor.close()
             conn.close()
     except Exception as e:
-        print(f"Database connection error: {str(e)}")
+        print(f"Database connection failed: {str(e)}")
         raise
