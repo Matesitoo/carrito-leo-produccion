@@ -8,12 +8,13 @@ passwordDB = os.getenv("SUPABASE_PASSWORD")
 
 def getCursor() -> Generator[psycopg2.extensions.cursor, None, None]:
     try:
+        # CONFIGURACIÓN CORRECTA
         conn = psycopg2.connect(
-            host="aws-0-us-west-1.pooler.supabase.com",
+            host="db.uubvpmedekdkzyvhjash.supabase.co",
             database="postgres",
-            user="postgres.uubvpmedekdkzyvhjash",
+            user="postgres",
             password=passwordDB,
-            port=6543,
+            port=5432,
             sslmode="require",
             connect_timeout=10
         )
