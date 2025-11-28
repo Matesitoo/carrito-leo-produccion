@@ -13,21 +13,21 @@ def getClientes(cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     return res
 
 @router.get("/obtener_cliente/{id}")
-def getClienteForId(id: int, cursor: psycopg.Cursor = Depends(getCursor)):
+def getClienteForId(id: int, cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     res = clientManager.getClienteForId(id, cursor)
     return res
 
 @router.post("/crear_cliente")
-def postCliente(cliente: ClienteModel, cursor: psycopg.Cursor = Depends(getCursor)):
+def postCliente(cliente: ClienteModel, cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     res = clientManager.addClient(cliente, cursor)
     return {"msg": res}
 
 @router.put("/modificar_cliente/{id}")
-def putCliente(id: int, clienteUpdated: ClienteModel, cursor: psycopg.Cursor = Depends(getCursor)):
+def putCliente(id: int, clienteUpdated: ClienteModel, cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     res = clientManager.modifyClient(id, clienteUpdated, cursor)
     return {"msg": res}
 
 @router.delete("/eliminar_cliente/{id}")
-def deleteCliente(id: int, cursor: psycopg.Cursor = Depends(getCursor)):
+def deleteCliente(id: int, cursor: psycopg2.extensions.cursor = Depends(getCursor)):
     res = clientManager.deleteClient(id, cursor)
     return {"msg": res}
