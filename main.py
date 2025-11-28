@@ -12,5 +12,3 @@ app.include_router(routerPedidos)
 @app.get("/")
 def root():
     return {"message": "API carrito funcionando con Supabase"}
-
-handler = app
