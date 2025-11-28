@@ -8,7 +8,6 @@ passwordDB = os.getenv("SUPABASE_PASSWORD")
 
 def getCursor() -> Generator[psycopg2.extensions.cursor, None, None]:
     try:
-
         conn = psycopg2.connect(
             host="db.uubvpnmdekdkzyvhjasb.supabase.co",
             database="postgres",
