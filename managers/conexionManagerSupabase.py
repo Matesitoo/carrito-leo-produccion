@@ -15,8 +15,7 @@ def getCursor() -> Generator[psycopg2.extensions.cursor, None, None]:
             password=passwordDB,
             port=5432,
             sslmode="require",
-            connect_timeout=10,
-            options="-c search_path=public"
+            connect_timeout=10
         )
         cursor = conn.cursor()
         try:
